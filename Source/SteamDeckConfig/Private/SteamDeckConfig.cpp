@@ -1,6 +1,7 @@
-﻿// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright (c) 2025 Jared Taylor
 
 #include "SteamDeckConfig.h"
+#include "System/SteamDeckConfigVersioning.h"
 
 #define PLATFORM_STEAMDECK PLATFORM_WINDOWS || PLATFORM_MAC || PLATFORM_LINUX
 
@@ -56,11 +57,15 @@ void FSteamDeckConfigModule::StartupModule()
 		for (const FString& ConfigFile : ConfigFiles)
 		{
 			const FString OverrideConfigPath = FPaths::Combine(FPaths::ProjectConfigDir(), "SteamDeck", "SteamDeck" + ConfigFile + ".ini");
-			
+
+#if UE_5_05_OR_LATER
+			FConfigCacheIni* PlatformEngineIni = FConfigCacheIni::ForPlatform(NAME_None);
+			FConfigBranch* Branch = PlatformEngineIni->FindBranch(FName(ConfigFile), "");
+			Branch->AddDynamicLayerToHierarchy(OverrideConfigPath);
+#else
 			FConfigFile* FoundConfig = GConfig->FindConfigFile(ConfigFile);
 			FoundConfig->AddDynamicLayerToHierarchy(OverrideConfigPath);
-
-			const FString OverrideConfigPathB = FPaths::Combine(FPaths::ProjectConfigDir(), "SteamDeck", "SteamDeck" + ConfigFile + ".ini");
+#endif
 		}
 	}
 #endif
