@@ -15,7 +15,7 @@ if (Target.Platform == UnrealTargetPlatform.Win64 ||
 	PrivateDependencyModuleNames.AddRange(
 		new string[]
 		{
-			"SteamDeckConfig", 
+			"SteamDeckConfig",
 			"Steamworks",
 		}
 	);
