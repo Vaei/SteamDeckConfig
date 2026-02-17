@@ -29,3 +29,11 @@ Add `<YourProject>/Config/SteamDeck` config files - [You can download these as a
 If using the provided files, modify `SteamDeckEngine.ini` and replace `ipAddr`, `Name`, `UserName`, `Password` with the specific settings for your own device -- these are just placholders.
 
 That's it.
+
+## Changelog
+
+### 1.0.1
+* Fix crash
+
+### 1.0.0
+* Initial Release
